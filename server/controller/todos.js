@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Todo from "../models/todos.js"
+import Todo from "../models/todos.js";
 
 export const readTodos = async (req, res) => {
   try {
@@ -9,8 +9,7 @@ export const readTodos = async (req, res) => {
     res.status(404).json({ error: error.message });
   }
 };
-
-export const createTodos = async (req, res) => {
+export const createTodo = async (req, res) => {
   const todo = new Todo(req.body);
   try {
     await todo.save();
