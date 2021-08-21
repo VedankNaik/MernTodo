@@ -4,9 +4,11 @@ import { createTodo, readTodos } from "./functions";
 
 function App() {
   const [todo, setTodo] = useState({ title: "", content: "" });
+  const [todos, setTodos] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       const result = await readTodos();
+      setTodos(result);
     };
     fetchData();
   }, []);
@@ -15,7 +17,7 @@ function App() {
     const result = await createTodo(todo);
   };
   return (
-    <div classname="container">
+    <div className="container">
       <div className="row center-align">
         <pre>{JSON.stringify(todo)}</pre>
         <form className="col s12" onSubmit={onSubmitHandler}>
@@ -45,22 +47,28 @@ function App() {
             <button className="waves-effect waves-light btn">Submit</button>
           </div>
         </form>
-        <Preloader />
-
-        <div className="collection">
-          <a href="#!" className="collection-item">
-            Alvin
-          </a>
-          <a href="#!" className="collection-item active">
-            Alvin
-          </a>
-          <a href="#!" className="collection-item">
-            Alvin
-          </a>
-          <a href="#!" className="collection-item">
-            Alvin
-          </a>
-        </div>
+        {!todos ? (
+          <Preloader />
+        ) : todos.length > 0 ? (
+          <div className="collection">
+            {todos.map((todo) => (
+              <li key={todo.id} className="collection-item">
+                <div>
+                  <h5>{todo.title}</h5>
+                  <p>{todo.content}
+                    <a href="#!" className="secondary-content">
+                      <i className="material-icons">delete</i>
+                    </a>
+                  </p>
+                </div>
+              </li>
+            ))}
+          </div>
+        ) : (
+          <div>
+            <h5>Nothing Todo</h5>
+          </div>
+        )}
       </div>
     </div>
   );
