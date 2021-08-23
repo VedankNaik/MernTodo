@@ -1,3 +1,3 @@
 # MernTodo
 
-Node server
+Todo app created with NodeJS and React
