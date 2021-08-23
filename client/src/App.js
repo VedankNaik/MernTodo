@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Preloader from "./components/Preloader";
-import { createTodo, readTodos, updateTodo, deleteTodo } from "./functions";
+import { createTodo, deleteTodo, readTodos, updateTodo } from "./functions";
 
 function App() {
   const [todo, setTodo] = useState({ title: "", content: "" });
@@ -8,7 +8,7 @@ function App() {
   const [currentId, setCurrentId] = useState(0);
   useEffect(() => {
     let currentTodo =
-      currentId != 0
+      currentId !== 0
         ? todos.find((todo) => todo._id === currentId)
         : { title: "", content: "" };
     setTodo(currentTodo);
