@@ -25,3 +25,12 @@ export const updateTodo = async (id, todo) => {
     console.error(error);
   }
 };
+
+export const deleteTodo = async (id) => {
+  try {
+    const { data } = await api.deleteTodo(id);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

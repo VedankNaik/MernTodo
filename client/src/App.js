@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Preloader from "./components/Preloader";
-import { createTodo, readTodos, updateTodo } from "./functions";
+import { createTodo, readTodos, updateTodo, deleteTodo } from "./functions";
 
 function App() {
   const [todo, setTodo] = useState({ title: "", content: "" });
@@ -43,6 +43,12 @@ function App() {
       await updateTodo(currentId, todo);
       clear();
     }
+  };
+  const removeTodo = async (id) => {
+    await deleteTodo(id);
+    const todosCopy = [...todos];
+    todosCopy.filter((todo) => todo._id !== id);
+    setTodos(todosCopy);
   };
   return (
     <div className="container">
@@ -91,7 +97,11 @@ function App() {
                   <h5>{todo.title}</h5>
                   <p>
                     {todo.content}
-                    <a href="#!" className="secondary-content">
+                    <a
+                      href="#!"
+                      onClick={() => removeTodo(todo._id)}
+                      className="secondary-content"
+                    >
                       <i className="material-icons">delete</i>
                     </a>
                   </p>
